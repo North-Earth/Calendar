@@ -10,7 +10,7 @@ namespace Calendar.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class StaffController : ControllerBase
     {
         #region Fields
 
@@ -33,7 +33,7 @@ namespace Calendar.Api.Controllers
 
         #region Constructors
 
-        public UsersController(IConfiguration configuration)
+        public StaffController(IConfiguration configuration)
         {
             _configuration = configuration;
             _queries = _configuration?.GetSection("SqlQueries")?
