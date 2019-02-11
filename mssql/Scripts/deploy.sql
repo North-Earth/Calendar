@@ -14,9 +14,9 @@ GO
 
 CREATE TABLE Calendar.Staff
 (
-     Id            INTEGER IDENTITY(1,1) NOT NULL
-    ,Name          NVARCHAR(256)         NOT NULL
-    ,ColorHexCode  VARCHAR(7)            NOT NULL
+     Id       INTEGER IDENTITY(1,1) NOT NULL
+    ,Name     NVARCHAR(256)         NOT NULL
+    ,ColorId  INTEGER               NOT NULL
     ,CONSTRAINT PkStaff PRIMARY KEY CLUSTERED 
     (
         Id ASC
@@ -32,7 +32,7 @@ AS
 SELECT
      stf.Id
     ,stf.Name
-    ,stf.ColorHexCode
+    ,stf.ColorId
 FROM Calendar.Staff AS stf
 GO
 
@@ -61,4 +61,33 @@ SELECT
     ,vct.CountDays
     ,vct.EndDate
 FROM Calendar.Vacation AS vct
+GO
+
+/* Источники с цветами */
+
+DROP TABLE IF EXISTS Calendar.Color
+GO
+
+CREATE TABLE Calendar.Color
+(
+     Id       INTEGER       NOT NULL
+    ,Name     NVARCHAR(256) NOT NULL
+    ,HexCode  VARCHAR(7)    NOT NULL
+    ,CONSTRAINT PkColor PRIMARY KEY CLUSTERED
+    (
+        Id ASC
+    )
+)
+GO
+
+DROP VIEW IF EXISTS Calendar.ColorView
+GO
+
+CREATE VIEW Calendar.ColorView 
+AS
+SELECT
+     clr.Id
+    ,clr.Name
+    ,clr.HexCode
+FROM Calendar.Color AS clr
 GO

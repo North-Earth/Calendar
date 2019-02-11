@@ -13,5 +13,11 @@ GO
 DROP VIEW IF EXISTS Calendar.VacationView
 GO
 
+DROP TABLE IF EXISTS Calendar.Color
+GO
+
+DROP VIEW IF EXISTS Calendar.ColorView
+GO
+
 DROP SCHEMA IF EXISTS Calendar
 GO
