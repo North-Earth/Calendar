@@ -44,11 +44,11 @@ namespace Calendar.Library.Repositories
         }
 
         /// <summary>
-        /// Записывает полученную колекцию в БД.
+        /// Выполняет запрос записиси/удаления данных в БД.
         /// </summary>
         /// <typeparam name="T">Модель данных</typeparam>
-        /// <param name="data">Колекция данных для записи</param>
-        public async void SetData<T>(string sqlQuery, IEnumerable<T> data) where T : class
+        /// <param name="data">Колекция данных</param>
+        public async void LoadData<T>(string sqlQuery, IEnumerable<T> data) where T : class
         {
             using (IDbConnection connection = new SqlConnection(_connectionString))
             {

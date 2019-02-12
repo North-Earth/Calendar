@@ -74,8 +74,22 @@ namespace Calendar.Api.Controllers
         [HttpPut]
         public void Put(Staff staff)
         {
-            _repository.SetData(_queries.Where(q 
+            _repository.LoadData(_queries.Where(q
                 => q.Name == "StaffInsert")?
+                .FirstOrDefault()?
+                .Query, new List<Staff> { staff });
+        }
+
+        /// <summary>
+        /// Удаляет пользователя из таблицы по идентификатору.
+        /// </summary>
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            var staff = Get()?.Where(s => s.Id == id)?.FirstOrDefault();
+
+            _repository.LoadData(_queries.Where(q
+                => q.Name == "StaffDelete")?
                 .FirstOrDefault()?
                 .Query, new List<Staff> { staff });
         }

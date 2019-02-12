@@ -24,3 +24,8 @@ Invoke-RestMethod http://localhost:5000/api/staff/5 -Method GET
 ```sh
 Invoke-RestMethod http://localhost:5000/api/users -Method PUT -Body (@{name = "Alex"; colorId = "27"} | ConvertTo-Json) -ContentType "application/json"
 ```
+Метод DELETE, удаляет данные по переданному ID.
+
+```sh
+Invoke-RestMethod http://localhost:5000/api/staff/5 -Method DELETE
+```

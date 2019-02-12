@@ -18,11 +18,11 @@ namespace Calendar.Library.Repositories
         Task<IEnumerable<T>> GetData<T>(string sqlQuery) where T : class;
 
         /// <summary>
-        /// Записывает полученную колекцию в БД.
+        /// Выполняет запрос записиси/удаления данных в БД.
         /// </summary>
         /// <typeparam name="T">Модель данных</typeparam>
-        /// <param name="data">Колекция данных для записи</param>
-        void SetData<T>(string sqlQuery, IEnumerable<T> data) where T : class;
+        /// <param name="data">Колекция данных</param>
+        void LoadData<T>(string sqlQuery, IEnumerable<T> data) where T : class;
 
         #endregion
     }

@@ -74,10 +74,19 @@ namespace Calendar.Api.Controllers
         [HttpPut]
         public void Put(Vacation vacation)
         {
-            _repository.SetData(_queries.Where(q
+            _repository.LoadData(_queries.Where(q
                 => q.Name == "VacationInsert")?
                 .FirstOrDefault()?
                 .Query, new List<Vacation> { vacation });
+        }
+
+        /// <summary>
+        /// Удаляет запись отпуска из таблицы по идентификатору.
+        /// </summary>
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            ///TODO: добавить индентификатор отпусков в модель и БД.
         }
 
         #endregion
