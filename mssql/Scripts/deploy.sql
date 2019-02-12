@@ -43,10 +43,11 @@ GO
 
 CREATE TABLE Calendar.Vacation
 (
-     UserId     INTEGER NOT NULL
-    ,StartDate  DATE    NOT NULL
-    ,EndDate    DATE    NOT NULL
-    ,CountDays  TINYINT NOT NULL
+     Id         INTEGER IDENTITY(1,1) NOT NULL
+    ,UserId     INTEGER               NOT NULL
+    ,StartDate  DATE                  NOT NULL
+    ,EndDate    DATE                  NOT NULL
+    ,CountDays  TINYINT               NOT NULL
 )
 GO
 
@@ -56,7 +57,8 @@ GO
 CREATE VIEW Calendar.VacationView
 AS
 SELECT
-     vct.UserId
+     vct.Id
+    ,vct.UserId
     ,vct.StartDate
     ,vct.CountDays
     ,vct.EndDate
@@ -70,9 +72,9 @@ GO
 
 CREATE TABLE Calendar.Color
 (
-     Id       INTEGER       NOT NULL
-    ,Name     NVARCHAR(256) NOT NULL
-    ,HexCode  VARCHAR(7)    NOT NULL
+     Id       INTEGER IDENTITY(1,1) NOT NULL
+    ,Name     NVARCHAR(256)         NOT NULL
+    ,HexCode  VARCHAR(7)            NOT NULL
     ,CONSTRAINT PkColor PRIMARY KEY CLUSTERED
     (
         Id ASC
@@ -90,4 +92,36 @@ SELECT
     ,clr.Name
     ,clr.HexCode
 FROM Calendar.Color AS clr
+GO
+
+INSERT INTO Calendar.ColorView
+(
+     Name
+    ,HexCode
+)
+VALUES
+(
+     'Синий'
+    ,'0000ff'
+)
+,(
+     'Красный'
+    ,'ff0000'
+)
+,(
+     'Зелёный'
+    ,'008000'
+)
+,(
+     'Жёлтый'
+    ,'ffff00'
+)
+,(
+     'Фиолетовый'
+    ,'8b00ff'
+)
+,(
+     'Оранжевый'
+    ,'ffa500'
+)
 GO
