@@ -7,7 +7,8 @@ GO
 CREATE VIEW Calendar.VacationView
 AS
 SELECT
-     vct.UserId
+     vct.Id
+    ,vct.UserId
     ,vct.StartDate
     ,vct.CountDays
     ,vct.EndDate

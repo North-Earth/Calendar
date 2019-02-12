@@ -55,7 +55,7 @@ namespace Calendar.Api.Controllers
         public IEnumerable<Vacation> Get()
         {
             return _repository.GetData<Vacation>(_queries.Where(q
-                => q.Name == "Vacation")?.FirstOrDefault()?.Query)?.Result.ToList();
+                => q.Name == "VacationSelect")?.FirstOrDefault()?.Query)?.Result.ToList();
         }
 
         /// <summary>
@@ -86,7 +86,12 @@ namespace Calendar.Api.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            ///TODO: добавить индентификатор отпусков в модель и БД.
+            var vacation = Get()?.Where(v => v.Id == id)?.FirstOrDefault();
+
+            _repository.LoadData(_queries.Where(q
+                => q.Name == "VacationDelete")?
+                .FirstOrDefault()?
+                .Query, new List<Vacation> { vacation });
         }
 
         #endregion

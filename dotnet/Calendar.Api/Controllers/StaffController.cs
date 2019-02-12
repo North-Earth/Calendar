@@ -55,7 +55,7 @@ namespace Calendar.Api.Controllers
         public IEnumerable<Staff> Get()
         {
             return _repository.GetData<Staff>(_queries.Where(q
-                => q.Name == "Staff")?.FirstOrDefault()?.Query)?.Result.ToList();
+                => q.Name == "StaffSelect")?.FirstOrDefault()?.Query)?.Result.ToList();
         }
 
         /// <summary>
