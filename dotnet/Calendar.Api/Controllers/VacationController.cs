@@ -10,7 +10,7 @@ namespace Calendar.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StaffController : ControllerBase
+    public class VacationController : ControllerBase
     {
         #region Fields
 
@@ -33,7 +33,7 @@ namespace Calendar.Api.Controllers
 
         #region Constructors
 
-        public StaffController(IConfiguration configuration)
+        public VacationController(IConfiguration configuration)
         {
             _configuration = configuration;
             _queries = _configuration?.GetSection("SqlQueries")?
@@ -48,36 +48,36 @@ namespace Calendar.Api.Controllers
         #region Methods
 
         /// <summary>
-        /// Возвращает выгрузку из таблицы с персоналом.
+        /// Возвращает выгрузку с отпусками.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IEnumerable<Staff> Get()
+        public IEnumerable<Vacation> Get()
         {
-            return _repository.GetData<Staff>(_queries.Where(q
-                => q.Name == "Staff")?.FirstOrDefault()?.Query)?.Result.ToList();
+            return _repository.GetData<Vacation>(_queries.Where(q
+                => q.Name == "Vacation")?.FirstOrDefault()?.Query)?.Result.ToList();
         }
 
         /// <summary>
-        /// Возвращает модель опреденного пользователя из таблицы персонала.
+        /// Возвращает коллекцию с отпусками конкретного пользователя.
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public Staff Get(int id)
+        public IEnumerable<Vacation> Get(int userId)
         {
-            return Get()?.Where(s => s.Id == id)?.FirstOrDefault();
+            return Get()?.Where(s => s.UserId == userId)?.ToList();
         }
 
         /// <summary>
-        /// Добавляет нового пользователя в таблицу с персоналом.
+        /// Добавляет новую запись отпуска в БД.
         /// </summary>
         [HttpPut]
-        public void Put(Staff staff)
+        public void Put(Vacation vacation)
         {
-            _repository.SetData(_queries.Where(q 
-                => q.Name == "StaffInsert")?
+            _repository.SetData(_queries.Where(q
+                => q.Name == "VacationInsert")?
                 .FirstOrDefault()?
-                .Query, new List<Staff> { staff });
+                .Query, new List<Vacation> { vacation });
         }
 
         #endregion
