@@ -61,11 +61,12 @@ namespace Calendar.Api.Controllers
         /// <summary>
         /// Возвращает коллекцию с отпусками конкретного пользователя.
         /// </summary>
+        /// <param name="id">UserId из Staff</param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public IEnumerable<Vacation> Get(int userId)
+        public IEnumerable<Vacation> Get(int id)
         {
-            return Get()?.Where(s => s.UserId == userId)?.ToList();
+            return Get()?.Where(s => s.UserId == id)?.ToList();
         }
 
         /// <summary>
