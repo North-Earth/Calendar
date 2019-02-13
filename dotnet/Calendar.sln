@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Api", "Calendar.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.Client", "Calendar.Client\Calendar.Client.csproj", "{3EBF1670-FD81-4306-861C-CEBD8E55CB20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.Library", "Calendar.Library\Calendar.Library.csproj", "{07A21451-58F0-4115-8F3C-06F19F822363}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.Library", "Calendar.Library\Calendar.Library.csproj", "{07A21451-58F0-4115-8F3C-06F19F822363}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.DataAccess", "Calendar.DataAccess\Calendar.DataAccess.csproj", "{326BC455-C32A-46FD-B5EA-C16EFE092DA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calendar.DataAccess", "Calendar.DataAccess\Calendar.DataAccess.csproj", "{326BC455-C32A-46FD-B5EA-C16EFE092DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calendar.Service", "Calendar.Service\Calendar.Service.csproj", "{E21F0F2C-3B3A-43A0-BF23-53073189D988}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{326BC455-C32A-46FD-B5EA-C16EFE092DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{326BC455-C32A-46FD-B5EA-C16EFE092DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{326BC455-C32A-46FD-B5EA-C16EFE092DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E21F0F2C-3B3A-43A0-BF23-53073189D988}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E21F0F2C-3B3A-43A0-BF23-53073189D988}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E21F0F2C-3B3A-43A0-BF23-53073189D988}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E21F0F2C-3B3A-43A0-BF23-53073189D988}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
