@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -96,7 +97,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Calendar.Library\Calendar.Library.csproj">
+      <Project>{07A21451-58F0-4115-8F3C-06F19F822363}</Project>
+      <Name>Calendar.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Calendar.Service\Calendar.Service.csproj">
+      <Project>{e21f0f2c-3b3a-43a0-bf23-53073189d988}</Project>
+      <Name>Calendar.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
