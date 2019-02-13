@@ -10,26 +10,30 @@ namespace Calendar.Service
         /// <summary>
         /// Возвращает коллекцию моделей данных.
         /// </summary>
-        /// <typeparam name="T">Модель данных</typeparam>
-        Task<IEnumerable<T>> GetData<T>() where T : class;
+        /// <typeparam name="T">Тип модели данных</typeparam>
+        /// <param name="controllerName">Название контроллера</param>
+        Task<IEnumerable<T>> GetData<T>(string controllerName) where T : class;
 
         /// <summary>
-        /// Передаёт модель данных для записи и возвращает результат.
+        /// Передаёт модель данных для записи.
         /// </summary>
         /// <param name="data">Модель данных</param>
-        bool SetData<T>(T data) where T : class;
+        /// <param name="controllerName">Название контроллера</param>
+        void SetData<T>(string controllerName, T data) where T : class;
 
         /// <summary>
-        /// Передаёт модель данных для изменения и возвращает результат.
+        /// Передаёт модель данных для изменения.
         /// </summary>
         /// <param name="data">Модель данных</param>
-        bool ChangeData<T>(T data) where T : class;
+        /// <param name="controllerName">Название контроллера</param>
+        void ChangeData<T>(string controllerName, T data) where T : class;
 
         /// <summary>
-        /// Передаёт модель данных для удаления и возвращает результат.
+        /// Передаёт модель данных для удаления.
         /// </summary>
         /// <param name="data">Модель данных</param>
-        bool DeleteData<T>(T data) where T : class;
+        /// <param name="controllerName">Название контроллера</param>
+        void DeleteData<T>(string controllerName, T data) where T : class;
 
         #endregion
     }
