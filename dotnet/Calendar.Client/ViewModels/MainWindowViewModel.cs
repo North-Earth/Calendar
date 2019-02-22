@@ -24,14 +24,14 @@ namespace Calendar.Client.ViewModels
             set { _staff = value; RaiseOnPropertyChanged(); }
         }
 
-        private Staff _selectedStaff { get; set; }
+        private Staff _selectedUser { get; set; }
         /// <summary>
         /// Модель выбранного пользователя.
         /// </summary>
         public Staff SelectedUser
         {
-            get => _selectedStaff;
-            set { _selectedStaff = value; RaiseOnPropertyChanged(); Test2(); }
+            get => _selectedUser;
+            set { _selectedUser = value; RaiseOnPropertyChanged(); SelectUser(); }
         }
 
         private ObservableCollection<Vacation> _vacations { get; set; }
@@ -44,10 +44,15 @@ namespace Calendar.Client.ViewModels
             set { _vacations = value; RaiseOnPropertyChanged(); }
         }
 
+        private IEnumerable<Vacation> _userVacations { get; set; }
         /// <summary>
         /// Коллекция с отпусками выбранного пользователя.
         /// </summary>
-        public IEnumerable<Vacation> UserVacation => Vacations?.Where(v => v.UserId == SelectedUser?.Id) ?? default;
+        public IEnumerable<Vacation> UserVacations
+        {
+            get => _userVacations;
+            set { _userVacations = value; RaiseOnPropertyChanged(); }
+        }
 
         private ObservableCollection<Color> _color { get; set; }
         /// <summary>
@@ -100,7 +105,7 @@ namespace Calendar.Client.ViewModels
 
         public void Test2()
         {
-            var a = UserVacation.ToList();
+            var a = UserVacations.ToList();
             var b = Vacations?.Where(v => v.UserId == SelectedUser?.Id);
             var c = Vacations?.Where(v => v.UserId == SelectedUser?.Id).ToList();
             bool IsDebug = true;
@@ -129,10 +134,12 @@ namespace Calendar.Client.ViewModels
 
         }
 
-        public void UpdateUserVacation()
-        {
-
-        }
+        /// <summary>
+        /// Делает выборку отпусков по выбраному пользователю.
+        /// </summary>
+        private void SelectUser()
+            => UserVacations = Vacations?.Where(v
+                => v.UserId == SelectedUser?.Id) ?? default;
 
         /// <summary>
         /// Завершает работу приложения.
