@@ -12,6 +12,7 @@
             <RowDefinition Height="75"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -24,8 +25,8 @@
                                       Height="75"
                                       materialDesign:ShadowAssist.ShadowDepth="Depth3">
                 <DockPanel>
-                    <materialDesign:PopupBox DockPanel.Dock="Right" 
-                                             PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                    <materialDesign:PopupBox DockPanel.Dock="Right" StaysOpen="False"
+                                             PlacementMode="BottomAndAlignRightEdges">
                         <StackPanel>
                             <Button Content="Настройки"/>
                             <Button Content="О программе"/>
@@ -63,7 +64,7 @@
 
             <Grid Grid.Row="1">
                 <ListBox IsEnabled="{Binding IsChecked, ElementName=EnableListBox}" 
-                         ItemsSource="{Binding Staff, UpdateSourceTrigger=PropertyChanged}"
+                         ItemsSource="{Binding Staff, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
                          DisplayMemberPath="Name" SelectedItem="{Binding SelectedUser}">
                 </ListBox>
             </Grid>
@@ -73,20 +74,34 @@
             <ListView ItemsSource="{Binding UserVacations, UpdateSourceTrigger=PropertyChanged}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding CountDays}" Header="Кол-во дней" />
-                        <GridViewColumn DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:d}}" Header="Дата начала" />
-                        <GridViewColumn DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:d}}" Header="Дата окончания" />
+                        <GridViewColumn DisplayMemberBinding="{Binding CountDays}" 
+                                        Header="Кол-во дней" />
+                        <GridViewColumn DisplayMemberBinding="{Binding StartDate, StringFormat={}{0:d}}" 
+                                        Header="Дата начала" />
+                        <GridViewColumn DisplayMemberBinding="{Binding EndDate, StringFormat={}{0:d}}"
+                                        Header="Дата окончания" />
                     </GridView>
                 </ListView.View>
             </ListView>
         </Grid>
 
-        <Grid Grid.Row="3" Grid.Column="0">
+        <Grid Grid.Row="2" Grid.Column="0">
 
         </Grid>
 
-        <Grid Grid.Row="3" Grid.Column="1">
-
+        <Grid Grid.Row="4" Grid.ColumnSpan="3">
+            <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth3" 
+                                      Mode="Dark" Height="30">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Visibility="{Binding IsDataLoad, UpdateSourceTrigger=PropertyChanged}">
+                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
+                                 IsIndeterminate="True" 
+                                 Margin="5 0"/>
+                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                               Text="Обновление данных..." Margin="5 0"/>
+                </StackPanel>
+            </materialDesign:ColorZone>
         </Grid>
     </Grid>
 </Window>

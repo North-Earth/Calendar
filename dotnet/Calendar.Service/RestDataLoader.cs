@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Calendar.Service
 {
-    public class RestDataLoader : IRestDataLoder
+    public class RestDataLoader : IRestDataLoader
     {
         #region Fields
 
-        private readonly RestClient _client;
+        private readonly IRestClient _client;
 
         #endregion
 
@@ -28,14 +28,25 @@ namespace Calendar.Service
         /// </summary>
         /// <typeparam name="T">Тип модели данных</typeparam>
         /// <param name="controllerName">Название контроллера</param>
-        public async Task<IEnumerable<T>> GetData<T>(string controllerName) where T : class
+        public async Task<IEnumerable<T>> GetData<T>(string controllerName) where T : new()
         {
             var request = new RestRequest($"api/{controllerName}", Method.GET);
-            var response = await _client.ExecuteTaskAsync<IEnumerable<T>>(request);
+
+            var response = _client.Execute<List<T>>(request);
 
             //Если нет ошибок возвращаем резульатат.
             if (response.ErrorException == null)
-                return response.Data;
+            {
+                switch (response.StatusCode)
+                {
+                    case System.Net.HttpStatusCode.OK:
+                        return response.Data;
+                        //TODO: обработка статусов.
+                    default:
+                        break;
+                }
+                throw new Exception();
+            }
             else
                 throw new Exception(); //TODO: Анализировать и обработать возможные ошибки.
         }

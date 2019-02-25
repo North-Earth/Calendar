@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Calendar.Service
 {
-    internal interface IRestDataLoder
+    public interface IRestDataLoader
     {
         #region Methods
 
@@ -12,7 +12,7 @@ namespace Calendar.Service
         /// </summary>
         /// <typeparam name="T">Тип модели данных</typeparam>
         /// <param name="controllerName">Название контроллера</param>
-        Task<IEnumerable<T>> GetData<T>(string controllerName) where T : class;
+        Task<IEnumerable<T>> GetData<T>(string controllerName) where T : new();
 
         /// <summary>
         /// Передаёт модель данных для записи.

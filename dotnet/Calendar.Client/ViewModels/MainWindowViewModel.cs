@@ -1,10 +1,12 @@
 ﻿using Calendar.Library.Models;
+using Calendar.Service;
 using Calendar.Service.Helper.Binding;
 using Calendar.Service.Helper.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -13,6 +15,11 @@ namespace Calendar.Client.ViewModels
     public class MainWindowViewModel : ObservableObject
     {
         #region Fields
+
+        /// <summary>
+        /// Интерфейс взаимодействия с REST сервисом.
+        /// </summary>
+        private readonly IRestDataLoader dataLoader;
 
         private ObservableCollection<Staff> _staff { get; set; }
         /// <summary>
@@ -64,6 +71,14 @@ namespace Calendar.Client.ViewModels
             set { _color = value; RaiseOnPropertyChanged(); }
         }
 
+        private Visibility _isDataLoad { get; set; }
+
+        public Visibility IsDataLoad
+        {
+            get => _isDataLoad;
+            set { _isDataLoad = value; RaiseOnPropertyChanged(); }
+        }
+
         #region Command
 
         private ICommand _shutdownCommand { get; set; }
@@ -103,14 +118,6 @@ namespace Calendar.Client.ViewModels
             };
         }
 
-        public void Test2()
-        {
-            var a = UserVacations.ToList();
-            var b = Vacations?.Where(v => v.UserId == SelectedUser?.Id);
-            var c = Vacations?.Where(v => v.UserId == SelectedUser?.Id).ToList();
-            bool IsDebug = true;
-        }
-
         #endregion TEST
 
         #endregion Command
@@ -121,6 +128,11 @@ namespace Calendar.Client.ViewModels
 
         public MainWindowViewModel()
         {
+            //Вынести URL в статический ресурс.
+            dataLoader = new RestDataLoader("http://localhost:51963");
+
+            StartAsync();
+
             ShutdownCommand = new DelegateCommand(param => { Shutdown(); });
             TestCommand = new DelegateCommand(param => { Test(); });
         }
@@ -129,9 +141,72 @@ namespace Calendar.Client.ViewModels
 
         #region Methods
 
-        public void UpdateData()
+        /// <summary>
+        /// Запускает асинхронно процессы приложения.
+        /// </summary>
+        /// <returns></returns>
+        public async Task StartAsync()
         {
+            try
+            {
+                await Task.Run(() => AutoUpdateAsync());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Непредвиденное исключение");
+            }
+        }
 
+        /// <summary>
+        /// Каждые 30 секунд обновляет данные приложения.
+        /// </summary>
+        /// <returns></returns>
+        public async Task AutoUpdateAsync()
+        {
+            //Счётчик повторных ошибок подключения.
+            int errorCount = 0;
+
+            while (errorCount <= 3)
+            {
+                try
+                {
+                    IsDataLoad = Visibility.Visible;
+
+                    await Task.Run(() => UpdateDataAsync());
+
+                    //Сбрасываем счётчик ошибок.
+                    errorCount = 0;
+                }
+                catch (Exception ex)
+                {
+                    errorCount++;
+                    //TODO: добавить логирование.
+                }
+                finally
+                {
+                    IsDataLoad = Visibility.Hidden;
+                }
+
+                //Ожидание 30 секунд до следующего обновления.
+                await Task.Delay(30000);
+            }
+
+            throw new Exception("Превышено допустимое количество повторных попыток автоматического подключения к API сервису.");
+        }
+
+        /// <summary>
+        /// Обновляет данные пользователей и отпусков.
+        /// </summary>
+        public async Task UpdateDataAsync()
+        {
+            //throw new Exception();
+            var dataStaff = await dataLoader.GetData<Staff>("staff");
+            Staff = new ObservableCollection<Staff>();
+            dataStaff?.ToList().ForEach(Staff.Add);
+
+            var dataVacation = await dataLoader.GetData<Vacation>("vacations");
+            Vacations = new ObservableCollection<Vacation>();
+            dataVacation?.ToList().ForEach(Vacations.Add);
         }
 
         /// <summary>
