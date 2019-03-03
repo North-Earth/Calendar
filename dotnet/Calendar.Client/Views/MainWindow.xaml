@@ -89,18 +89,38 @@
 
         </Grid>
 
+        <Grid Grid.Row="2" Grid.Column="1">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Left" 
+                            Orientation="Horizontal" Margin="15 0">
+                    <Button Content="Обновить"/>
+                </StackPanel>
+                <StackPanel DockPanel.Dock="Right" 
+                            Orientation="Horizontal"  
+                            HorizontalAlignment="Right">
+                    <Button Content="Добавить"/>
+                    <Button Content="Удалить" Margin="15 0"/>
+                </StackPanel>
+            </DockPanel>
+        </Grid>
+
         <Grid Grid.Row="4" Grid.ColumnSpan="3">
             <materialDesign:ColorZone materialDesign:ShadowAssist.ShadowDepth="Depth3" 
                                       Mode="Dark" Height="30">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Visibility="{Binding IsDataLoad, UpdateSourceTrigger=PropertyChanged}">
-                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Style="{StaticResource MaterialDesignSubheadingTextBlock}" 
+                               Text="v1.0.0" Margin="15 0" VerticalAlignment="Center"/>
+                    <StackPanel DockPanel.Dock="Right" 
+                                Orientation="Horizontal" HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Visibility="{Binding IsDataLoad, UpdateSourceTrigger=PropertyChanged}">
+                        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
                                  IsIndeterminate="True" 
                                  Margin="5 0"/>
-                    <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                        <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}"
                                Text="Обновление данных..." Margin="5 0"/>
-                </StackPanel>
+                    </StackPanel>
+                </DockPanel>
             </materialDesign:ColorZone>
         </Grid>
     </Grid>
